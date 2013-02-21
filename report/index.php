@@ -8,6 +8,8 @@
 	<title>Archive System</title>
 <style type="text/css">
 
+
+
 #body{
 	height : 400px;
 	width: 1024px; 
