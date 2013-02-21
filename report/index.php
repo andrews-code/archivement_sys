@@ -96,7 +96,7 @@ if($keywords||$year||$month){
 	$result = mysql_query($q, $dbh);
 
 	$message_count = mysql_num_rows($result);
-	$page_size = 2;
+	$page_size = 1;
 	$page = @$_GET['page']? $_GET['page']:0;
 	
 	$page_count = ceil($message_count/$page_size);
@@ -130,25 +130,27 @@ while($row = mysql_fetch_object($result)){
 	$last_page = $page_count;
 	//echo "--page--".$page."--next page--".$next_page."<br>";
 	if ($page <= 1){
-		 echo "first page&nbsp;&nbsp;";
+		 echo "First page&nbsp;&nbsp;";
 	}else {
 		?> 
 			<a href='index.php?page=1&year=<?=$year?>&month=<?=$month?>&keywords=<?=$keywords?>'>First page</a>&nbsp;&nbsp;
 		<?php
 	}
 	if($prev_page <= 0 ){
-		echo "previous page&nbsp;&nbsp;";
+		echo "<<&nbsp;&nbsp;";
 	} else{
 		?>
-			<a href='index.php?page=<?=$prev_page?>&year=<?=$year?>&month=<?=$month?>&keywords=<?=$keywords?>'>Previous page</a>&nbsp;&nbsp;
+			<a href='index.php?page=<?=$prev_page?>&year=<?=$year?>&month=<?=$month?>&keywords=<?=$keywords?>'> << </a>&nbsp;&nbsp;
 		<?php
 	}	
-	
-	if($next_page >= $page_count){
-		echo "Next page&nbsp;&nbsp;";
+
+	echo $page."&nbsp;&nbsp;";
+
+	if($next_page > $page_count){
+		echo ">>&nbsp;&nbsp;";
 	} else{
 		?>
-		<a href='index.php?page=<?=$next_page?>&year=<?=$year?>&month=<?=$month?>&keywords=<?=$keywords?>'>Next page</a>&nbsp;&nbsp;
+		<a href='index.php?page=<?=$next_page?>&year=<?=$year?>&month=<?=$month?>&keywords=<?=$keywords?>'> >> </a>&nbsp;&nbsp;
 		<?php
 	}
 	
@@ -160,6 +162,8 @@ while($row = mysql_fetch_object($result)){
 			<a href='index.php?page=<?=$last_page?>&year=<?=$year?>&month=<?=$month?>&keywords=<?=$keywords?>'>Last page</a>
 		<?PHP
 	} 
+	
+	echo "Total $page_count";
 	
 @mysql_close($dbh);
 }else{
