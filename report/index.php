@@ -8,8 +8,6 @@
 	<title>Archive System</title>
 <style type="text/css">
 
-
-
 #body{
 	height : 400px;
 	width: 1024px; 
@@ -96,7 +94,7 @@ if($keywords||$year||$month){
 	$result = mysql_query($q, $dbh);
 
 	$message_count = mysql_num_rows($result);
-	$page_size = 1;
+	$page_size = 20;
 	$page = @$_GET['page']? $_GET['page']:0;
 	
 	$page_count = ceil($message_count/$page_size);
@@ -116,7 +114,7 @@ while($row = mysql_fetch_object($result)){
 		<td><?=$row->year?></td>
 		<td><?=$row->month?></td>
 		<td><a target="_blank" href="<?=$row->file_name?>"> <?=$row->file_name?></a></td>
-		<td><a href="controller/delete.php?id=<?=$row->id?>">Delete</a></td>
+		<td><a href="javascript:if(confirm('Do you confirm delete this file?')){location='http://localhost/report/controller/delete.php?id=<?=$row->id?>'}">Delete</a></td>
 	</tr>
 	<tr>
 		<td colspan="4" align="center">
